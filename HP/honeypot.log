@@ -1,0 +1,118 @@
+2026-10-06 15:56:18,386 INFO WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.127:8080
+2026-10-06 15:56:18,386 INFO Press CTRL+C to quit
+2026-10-06 15:56:45,238 INFO 127.0.0.1 - - [06/Oct/2026 15:56:45] "GET /login HTTP/1.1" 200 -
+2026-10-06 15:56:45,298 INFO 127.0.0.1 - - [06/Oct/2026 15:56:45] "GET /favicon.ico HTTP/1.1" 404 -
+2026-10-06 15:56:56,746 INFO login attempt user='ben' ip=127.0.0.1 success=True
+2026-10-06 15:56:56,748 INFO 127.0.0.1 - - [06/Oct/2026 15:56:56] "POST /login HTTP/1.1" 302 -
+2026-10-06 15:56:56,755 INFO 127.0.0.1 - - [06/Oct/2026 15:56:56] "GET / HTTP/1.1" 200 -
+2026-10-06 15:57:16,764 INFO 127.0.0.1 - - [06/Oct/2026 15:57:16] "GET /logout HTTP/1.1" 302 -
+2026-10-06 15:57:16,774 INFO 127.0.0.1 - - [06/Oct/2026 15:57:16] "GET /login HTTP/1.1" 200 -
+2026-10-06 15:57:30,095 WARNING DECOY HIT user='support' ip=127.0.0.1 success=True agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36'
+2026-10-06 15:57:30,096 INFO 127.0.0.1 - - [06/Oct/2026 15:57:30] "POST /login HTTP/1.1" 302 -
+2026-10-06 15:57:30,101 INFO 127.0.0.1 - - [06/Oct/2026 15:57:30] "GET / HTTP/1.1" 200 -
+2026-10-06 16:27:30,532 INFO WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.127:8080
+2026-10-06 16:27:30,532 INFO Press CTRL+C to quit
+2026-10-06 16:27:52,855 INFO 127.0.0.1 - - [06/Oct/2026 16:27:52] "GET / HTTP/1.1" 302 -
+2026-10-06 16:27:52,866 INFO 127.0.0.1 - - [06/Oct/2026 16:27:52] "GET /login HTTP/1.1" 200 -
+2026-10-06 16:27:57,548 INFO WHITELISTED user='ben' ip=127.0.0.1
+2026-10-06 16:27:57,548 INFO 127.0.0.1 - - [06/Oct/2026 16:27:57] "POST /login HTTP/1.1" 302 -
+2026-10-06 16:27:57,552 INFO 127.0.0.1 - - [06/Oct/2026 16:27:57] "GET / HTTP/1.1" 302 -
+2026-10-07 08:33:12,768 INFO WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.127:8080
+2026-10-07 08:33:12,768 INFO Press CTRL+C to quit
+2026-10-07 08:33:25,306 INFO 127.0.0.1 - - [07/Oct/2026 08:33:25] "GET /login HTTP/1.1" 200 -
+2026-10-07 08:33:29,765 ERROR Exception on /login [POST]
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\Honeytpot2\.venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\User\PycharmProjects\Honeytpot2\.venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\User\PycharmProjects\Honeytpot2\.venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\User\PycharmProjects\Honeytpot2\.venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\Honeytpot2\site_log_reg.py", line 112, in login
+    session["user"] = username
+    ~~~~~~~^^^^^^^^
+  File "C:\Users\User\PycharmProjects\Honeytpot2\.venv\Lib\site-packages\flask\sessions.py", line 90, in _fail
+    raise RuntimeError(
+    ...<3 lines>...
+    )
+RuntimeError: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+2026-10-07 08:33:29,769 INFO login attempt user='ben' ip=127.0.0.1 success=False
+2026-10-07 08:33:29,769 INFO 127.0.0.1 - - [07/Oct/2026 08:33:29] "POST /login HTTP/1.1" 500 -
+2026-10-07 08:34:10,366 INFO WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.127:8080
+2026-10-07 08:34:10,366 INFO Press CTRL+C to quit
+2026-10-07 08:36:00,273 INFO WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.127:8080
+2026-10-07 08:36:00,273 INFO Press CTRL+C to quit
+2026-10-07 08:36:08,691 INFO 127.0.0.1 - - [07/Oct/2026 08:36:08] "GET /login HTTP/1.1" 200 -
+2026-10-07 08:36:12,965 ERROR Exception on /login [POST]
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\Honeytpot2\.venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\User\PycharmProjects\Honeytpot2\.venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\User\PycharmProjects\Honeytpot2\.venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\User\PycharmProjects\Honeytpot2\.venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\Honeytpot2\site_log_reg.py", line 112, in login
+    session["user"] = username
+    ~~~~~~~^^^^^^^^
+  File "C:\Users\User\PycharmProjects\Honeytpot2\.venv\Lib\site-packages\flask\sessions.py", line 90, in _fail
+    raise RuntimeError(
+    ...<3 lines>...
+    )
+RuntimeError: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+2026-10-07 08:36:12,969 INFO login attempt user='ben' ip=127.0.0.1 success=False
+2026-10-07 08:36:12,969 INFO 127.0.0.1 - - [07/Oct/2026 08:36:12] "POST /login HTTP/1.1" 500 -
+2026-10-07 08:37:29,287 INFO WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.127:8080
+2026-10-07 08:37:29,287 INFO Press CTRL+C to quit
+2026-10-07 08:37:44,216 INFO 127.0.0.1 - - [07/Oct/2026 08:37:44] "GET /login HTTP/1.1" 200 -
+2026-10-07 08:37:48,838 INFO WHITELISTED user='ben' ip=127.0.0.1
+2026-10-07 08:37:48,839 INFO 127.0.0.1 - - [07/Oct/2026 08:37:48] "POST /login HTTP/1.1" 302 -
+2026-10-07 08:37:48,843 INFO 127.0.0.1 - - [07/Oct/2026 08:37:48] "GET / HTTP/1.1" 302 -
+2026-10-07 08:37:48,848 INFO 127.0.0.1 - - [07/Oct/2026 08:37:48] "GET /login HTTP/1.1" 200 -
+2026-10-07 08:38:19,016 INFO 127.0.0.1 - - [07/Oct/2026 08:38:19] "GET /login HTTP/1.1" 200 -
+2026-10-07 08:40:13,905 INFO WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.127:8080
+2026-10-07 08:40:13,906 INFO Press CTRL+C to quit
+2026-10-07 08:41:24,158 INFO 127.0.0.1 - - [07/Oct/2026 08:41:24] "GET /login HTTP/1.1" 200 -
+2026-10-07 08:46:52,823 INFO WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.127:8080
+2026-10-07 08:46:52,823 INFO Press CTRL+C to quit
+2026-10-07 08:56:03,744 INFO WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.127:8080
+2026-10-07 08:56:03,744 INFO Press CTRL+C to quit
+2026-10-07 08:56:53,778 INFO 127.0.0.1 - - [07/Oct/2026 08:56:53] "GET / HTTP/1.1" 302 -
+2026-10-07 08:56:53,788 INFO 127.0.0.1 - - [07/Oct/2026 08:56:53] "GET /login HTTP/1.1" 200 -
+2026-10-07 08:57:18,025 INFO WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.127:8080
+2026-10-07 08:57:18,025 INFO Press CTRL+C to quit

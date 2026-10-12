@@ -5,9 +5,8 @@ from flask import Flask, redirect, render_template_string, request, session, url
 from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
-app.secret_key = "12345"  # needed for sessions
 
-ACCOUNTS_FILE = "accounts.pkl"
+ACCOUNTS_FILE = "reg_users/accounts.pkl"
 
 
 # ---------- pickle storage ----------
