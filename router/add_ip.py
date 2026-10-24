@@ -1,7 +1,9 @@
 import socket
 import sys
-# this is a tool for me to check it works...
-# Whitelist an IP by hand while changepac.py is running
-with socket.create_connection(("127.0.0.1", 9000)) as s:
-    s.sendall(sys.argv[1].encode())
+
+from config import LISTEN_PORT
+
+# Whitelist an IP by hand while router.py is running:   python add_ip.py 192.168.1.50
+with socket.create_connection(("127.0.0.1", LISTEN_PORT)) as s:
+    s.sendall(f"WHITELIST {sys.argv[1]}".encode())
 print("sent", sys.argv[1])
