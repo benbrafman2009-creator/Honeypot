@@ -1,10 +1,11 @@
 import sqlite3
 
 from flask import Flask, redirect, render_template_string, request, session, url_for
+from secret_store import get_secret
 from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
-app.secret_key = "sdfhg7278447yrjbnsf"
+app.secret_key = get_secret("app_secret.txt")  # needed for sessions, kept out of the code
 
 DB_FILE = "accounts.db"
 

@@ -1,28 +1,35 @@
-import os
-import pickle
+import sqlite3
 
 from flask import Flask, redirect, render_template_string, request, session, url_for
+from secret_store import get_secret
 from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
-#cretaed with: python -c "import secrets; print(secrets.token_hex(32))"
-app.secret_key = "dab4806577e6eee4de2bf3302a7e9bf19859a8818abd7fbec5629fa1da872368"  # needed for sessions
+app.secret_key = get_secret("app_secret.txt")  # needed for sessions, kept out of the code
 
-ACCOUNTS_FILE = "reg_users/accounts.pkl"
+DB_FILE = "accounts.db"
 
 
-# ---------- pickle storage ----------
+# ---------- SQLite storage ----------
+def get_db():
+    db = sqlite3.connect(DB_FILE)
+    db.execute("CREATE TABLE IF NOT EXISTS accounts (username TEXT PRIMARY KEY, password_hash TEXT NOT NULL)")
+    return db
+
+
 def load_accounts():
-    """Return the {username: password_hash} dict from the pickle file."""
-    if not os.path.exists(ACCOUNTS_FILE):
-        return {}
-    with open(ACCOUNTS_FILE, "rb") as f:
-        return pickle.load(f)
+    """Return the {username: password_hash} dict from the database."""
+    db = get_db()
+    rows = db.execute("SELECT username, password_hash FROM accounts").fetchall()
+    db.close()
+    return dict(rows)
 
 
 def save_accounts(accounts):
-    with open(ACCOUNTS_FILE, "wb") as f:
-        pickle.dump(accounts, f)
+    db = get_db()
+    db.executemany("INSERT OR REPLACE INTO accounts VALUES (?, ?)", accounts.items())
+    db.commit()
+    db.close()
 
 
 # ---------- HTML templates ----------

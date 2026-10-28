@@ -1,12 +1,12 @@
-import pickle
+import shutil
+import sqlite3
 
 from werkzeug.security import generate_password_hash
 
-REAL_FILE = "reg_users/accounts.pkl"  # a copy of the asset's accounts.pkl
-HONEYPOT_FILE = "reg_users/honeypot_accounts.pkl"
+REAL_DB = "real_accounts.db"   # a copy of the asset's accounts.db - bring this over by hand
+HONEYPOT_DB = "honeypot.db"
 
 # Fake accounts that attract attackers (username: weak password).
-#TODO: add more/add a simple API request to ai to check
 DECOYS = {
     "admin": "admin123",
     "root": "toor",
@@ -19,16 +19,24 @@ DECOYS = {
 }
 
 if __name__ == "__main__":
-    #Start with the real accounts...
-    with open(REAL_FILE, "rb") as f:
-        accounts = pickle.load(f)
+    real_db = sqlite3.connect(REAL_DB)
+    real_usernames = [row[0] for row in real_db.execute("SELECT username FROM accounts")]
+    real_db.close()
 
-    #Adds the decoys on top
+    shutil.copyfile(REAL_DB, HONEYPOT_DB)
+    db = sqlite3.connect(HONEYPOT_DB)
+
+    # remember which usernames are genuinely real, in a table nobody can register into
+    # (so an account someone creates ON the honeypot can never pass as a real one)
+    db.execute("CREATE TABLE IF NOT EXISTS real_usernames (username TEXT PRIMARY KEY)")
+    db.executemany("INSERT OR IGNORE INTO real_usernames VALUES (?)", [(u,) for u in real_usernames])
+
+    # add the decoys on top (a decoy never replaces a real account)
     for username, password in DECOYS.items():
-        if username not in accounts:
-            accounts[username] = generate_password_hash(password)
+        db.execute("INSERT OR IGNORE INTO accounts VALUES (?, ?)", (username, generate_password_hash(password)))
 
-    with open(HONEYPOT_FILE, "wb") as f:
-        pickle.dump(accounts, f)
+    db.commit()
+    count = db.execute("SELECT COUNT(*) FROM accounts").fetchone()[0]
+    db.close()
 
-    print(f"{HONEYPOT_FILE} written with {len(accounts)} accounts")
+    print(f"{HONEYPOT_DB} written with {count} accounts ({len(real_usernames)} of them real)")
