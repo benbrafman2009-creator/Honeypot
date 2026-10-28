@@ -13,12 +13,15 @@ before being sent on to the client, so the client never notices the honeypot.
 """
 import pickle
 import socket
+import sqlite3
 import threading
 
 import pydivert
 from config import ASSET_IP, HP_IP, LISTEN_PORT, PORT
+from sync_to_honeypot import notify_registration
 
 WHITELIST_FILE = "whitelist.pkl"
+ACCOUNTS_DB = "accounts.db"  # the asset's own database - same file app.py uses
 
 # only genuinely NEW network traffic is captured - never our own redirected packets,
 # which avoids the router catching and re-processing its own output
@@ -50,7 +53,9 @@ def add_to_whitelist(ip):
 
 # ---------- whitelist requests from the honeypot computer ----------
 def listen_for_messages():
-    """The honeypot sends "WHITELIST <ip>" here after a real login."""
+    """  "WHITELIST <ip>"                    -> a real login happened on the honeypot
+         "REGISTER <username> <password_hash>" -> someone registered on the honeypot and
+                                                    needs to become a real account here too  """
     server = socket.socket()
     server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     server.bind(("0.0.0.0", LISTEN_PORT))
@@ -64,11 +69,22 @@ def listen_for_messages():
             parts = []
         conn.close()
 
-        if sender_ip in (HP_IP, "127.0.0.1") and len(parts) == 2 and parts[0] == "WHITELIST":
+        if sender_ip not in (HP_IP, "127.0.0.1"):
+            print(f"ignored a message from {sender_ip}")
+        elif len(parts) == 2 and parts[0] == "WHITELIST":
             print(f"whitelist request from {sender_ip} for {parts[1]}")
             add_to_whitelist(parts[1])
+        elif len(parts) == 3 and parts[0] == "REGISTER":
+            username, password_hash = parts[1], parts[2]
+            db = sqlite3.connect(ACCOUNTS_DB)
+            db.execute("CREATE TABLE IF NOT EXISTS accounts (username TEXT PRIMARY KEY, password_hash TEXT NOT NULL)")
+            db.execute("INSERT OR IGNORE INTO accounts VALUES (?, ?)", (username, password_hash))
+            db.commit()
+            db.close()
+            print(f"'{username}' registered for real (it started on the honeypot)")
+            notify_registration(username, password_hash)  # confirm it as real back on the honeypot
         else:
-            print(f"ignored a message from {sender_ip}")
+            print(f"ignored an unknown message from {sender_ip}")
 
 
 # ---------- packet routing ----------
@@ -88,7 +104,7 @@ def route_packets():
                     client_ip_of[packet.src_port] = client_ip
 
                     port_key = (client_ip, packet.src_port)
-                    if port_key[0] not in [ip[0] for ip in seen_ports]:  # print once per connection, not on every retransmitted SYN
+                    if port_key not in seen_ports:  # print once per connection, not on every retransmitted SYN
                         seen_ports.add(port_key)
                         print(f"new connection from {client_ip} -> {'REAL SITE' if target == 'asset' else 'HONEYPOT'}")
 

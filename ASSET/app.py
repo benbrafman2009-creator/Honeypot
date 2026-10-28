@@ -2,7 +2,7 @@ import sqlite3
 
 from flask import Flask, redirect, render_template_string, request, session, url_for
 from secret_store import get_secret
-from sync_to_honeypot import notify_new_account
+from sync_to_honeypot import notify_registration
 from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
@@ -104,7 +104,7 @@ def register():
         password_hash = generate_password_hash(password)  # never store plain text
         accounts[username] = password_hash
         save_accounts(accounts)
-        notify_new_account(username, password_hash)
+        notify_registration(username, password_hash)
         return redirect(url_for("login", registered=1))
 
     return page("Register", REGISTER_BODY)

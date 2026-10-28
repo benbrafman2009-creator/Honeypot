@@ -3,7 +3,7 @@ import socket
 from config import HP_IP, SYNC_PORT
 
 
-def notify_new_account(username, password_hash):
+def notify_registration(username, password_hash):
     """Tell the honeypot about a newly registered account, right when it happens -
     no more copying accounts.db over by hand."""
     try:

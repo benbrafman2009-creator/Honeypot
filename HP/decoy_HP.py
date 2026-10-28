@@ -18,8 +18,13 @@ DECOYS = {
 
 if __name__ == "__main__":
     db = sqlite3.connect(DB_FILE)
-    db.executescript(open("sql/real_accounts.sql").read())
-    db.executescript(open("sql/decoy_accounts.sql").read())
+
+    # real_accounts: filled live by sync_listener.py whenever the asset registers someone
+    db.execute("CREATE TABLE IF NOT EXISTS real_accounts (username TEXT PRIMARY KEY, password_hash TEXT NOT NULL)")
+
+    # decoy_accounts: logging in with one of these flags the client's IP
+    db.execute("CREATE TABLE IF NOT EXISTS decoy_accounts (username TEXT PRIMARY KEY, password_hash TEXT NOT NULL)")
+
     # "accounts" is the table app.py's login/register actually checks against -
     # every decoy also goes in here, so logging in with one works like any other account.
     db.execute("CREATE TABLE IF NOT EXISTS accounts (username TEXT PRIMARY KEY, password_hash TEXT NOT NULL)")

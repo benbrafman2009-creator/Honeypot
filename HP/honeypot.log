@@ -116,3 +116,84 @@ RuntimeError: The session is unavailable because no secret key was set.  Set the
  * Running on http://127.0.0.1:8080
  * Running on http://192.168.1.127:8080
 2026-10-07 08:57:18,025 INFO Press CTRL+C to quit
+2026-10-28 08:42:21,482 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.145:5000
+2026-10-28 08:42:21,482 INFO [33mPress CTRL+C to quit[0m
+2026-10-28 08:42:46,402 INFO 192.168.1.127 - - [28/Oct/2026 08:42:46] "[32mGET / HTTP/1.1[0m" 302 -
+2026-10-28 08:42:46,481 INFO 192.168.1.127 - - [28/Oct/2026 08:42:46] "GET /login HTTP/1.1" 200 -
+2026-10-28 08:42:46,758 INFO 192.168.1.127 - - [28/Oct/2026 08:42:46] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-10-28 08:42:49,879 INFO 192.168.1.127 - - [28/Oct/2026 08:42:49] "GET /login HTTP/1.1" 200 -
+2026-10-28 08:43:02,271 INFO 192.168.1.127 - - [28/Oct/2026 08:43:02] "GET /register HTTP/1.1" 200 -
+2026-10-28 08:43:12,071 INFO 192.168.1.127 - - [28/Oct/2026 08:43:12] "[32mPOST /register HTTP/1.1[0m" 302 -
+2026-10-28 08:43:12,234 INFO 192.168.1.127 - - [28/Oct/2026 08:43:12] "GET /login?registered=1 HTTP/1.1" 200 -
+2026-10-28 08:43:44,485 ERROR Exception on /login [POST]
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 920, in full_dispatch_request
+    return self.finalize_request(rv)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 941, in finalize_request
+    response = self.process_response(response)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1319, in process_response
+    response = self.ensure_sync(func)(response)
+  File "C:\Users\Administrator\PycharmProjects\h\HP\HP.py", line 56, in watch_logins
+    if is_decoy(username):
+       ~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Administrator\PycharmProjects\h\HP\HP.py", line 33, in is_decoy
+    row = db.execute("SELECT 1 FROM decoy_accounts WHERE username = ?", (username,)).fetchone()
+          ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: decoy_accounts
+2026-10-28 08:43:44,537 ERROR Request finalizing failed with an error while handling an error
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 920, in full_dispatch_request
+    return self.finalize_request(rv)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 941, in finalize_request
+    response = self.process_response(response)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1319, in process_response
+    response = self.ensure_sync(func)(response)
+  File "C:\Users\Administrator\PycharmProjects\h\HP\HP.py", line 56, in watch_logins
+    if is_decoy(username):
+       ~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Administrator\PycharmProjects\h\HP\HP.py", line 33, in is_decoy
+    row = db.execute("SELECT 1 FROM decoy_accounts WHERE username = ?", (username,)).fetchone()
+          ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: decoy_accounts
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 941, in finalize_request
+    response = self.process_response(response)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1319, in process_response
+    response = self.ensure_sync(func)(response)
+  File "C:\Users\Administrator\PycharmProjects\h\HP\HP.py", line 56, in watch_logins
+    if is_decoy(username):
+       ~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Administrator\PycharmProjects\h\HP\HP.py", line 33, in is_decoy
+    row = db.execute("SELECT 1 FROM decoy_accounts WHERE username = ?", (username,)).fetchone()
+          ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: decoy_accounts
+2026-10-28 08:43:44,540 INFO 192.168.1.127 - - [28/Oct/2026 08:43:44] "[35m[1mPOST /login?registered=1 HTTP/1.1[0m" 500 -
+2026-10-28 08:50:22,325 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.145:5000
+2026-10-28 08:50:22,325 INFO [33mPress CTRL+C to quit[0m
+2026-10-28 08:50:45,939 INFO 192.168.1.127 - - [28/Oct/2026 08:50:45] "[32mGET / HTTP/1.1[0m" 302 -
+2026-10-28 08:50:46,014 INFO 192.168.1.127 - - [28/Oct/2026 08:50:46] "GET /login HTTP/1.1" 200 -
+2026-10-28 08:50:49,417 INFO 192.168.1.127 - - [28/Oct/2026 08:50:49] "GET /register HTTP/1.1" 200 -
+2026-10-28 08:50:58,580 INFO 192.168.1.127 - - [28/Oct/2026 08:50:58] "[32mPOST /register HTTP/1.1[0m" 302 -
+2026-10-28 08:50:58,621 INFO 192.168.1.127 - - [28/Oct/2026 08:50:58] "GET /login?registered=1 HTTP/1.1" 200 -
+2026-10-28 08:51:01,414 INFO 192.168.1.127 - - [28/Oct/2026 08:51:01] "GET /login?registered=1 HTTP/1.1" 200 -
+2026-10-28 08:51:50,898 INFO login attempt user='Ben' ip=192.168.1.127
+2026-10-28 08:51:50,899 INFO 192.168.1.127 - - [28/Oct/2026 08:51:50] "[32mPOST /login?registered=1 HTTP/1.1[0m" 302 -
+2026-10-28 08:51:50,963 INFO 192.168.1.127 - - [28/Oct/2026 08:51:50] "GET / HTTP/1.1" 200 -
+2026-10-28 08:52:03,466 INFO 192.168.1.127 - - [28/Oct/2026 08:52:03] "GET / HTTP/1.1" 200 -
+2026-10-28 08:52:08,475 INFO 192.168.1.127 - - [28/Oct/2026 08:52:08] "[32mGET /logout HTTP/1.1[0m" 302 -
+2026-10-28 08:52:08,533 INFO 192.168.1.127 - - [28/Oct/2026 08:52:08] "GET /login HTTP/1.1" 200 -
